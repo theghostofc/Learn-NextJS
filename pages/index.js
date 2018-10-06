@@ -1,21 +1,30 @@
 import Layout from '../components/MyLayout.js'
 import Link from 'next/link'
 
-const PostLink = (props) => (
-  <li>
-    <Link as={`/p/${props.id}`} href={`/post?title=${props.title}`}>
-      <a>{props.title}</a>
-    </Link>
-  </li>
-)
-
-export default () => (
+const giphy = require('giphy-api')({'https':true});
+const Index = (props) => (
   <Layout>
-    <h1>My Blog</h1>
+    <h1>Trending Giphys</h1>
     <ul>
-      <PostLink id="hello-nextjs" title="Hello Next.js"/>
-      <PostLink id="learn-nextjs" title="Learn Next.js is awesome"/>
-      <PostLink id="deploy-nextjs" title="Deploy apps with Zeit"/>
+      {props.images.map(image => (
+        <li>
+          <figure>
+            <img src={`https://media.giphy.com/media/${image.id}/giphy.gif`} title={`${image.title}`} />
+            <figcaption>{`${image.title}. Source: Giphy`}</figcaption>
+          </figure>
+        </li>
+      ))}
     </ul>
   </Layout>
 )
+
+Index.getInitialProps = async function() {
+  var data = await giphy.trending().then(function (res) {
+    return res.data;
+  });
+  return {
+    images: data
+  }
+}
+
+export default Index
