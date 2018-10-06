@@ -1,3 +1,5 @@
 puphpet/config-custom.yaml
 .vagrant/
 .gitattributes
+.next/
+.cache/
