@@ -174,7 +174,7 @@ nginx:
                         - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
     proxies: {  }
 apache:
-    install: '1'
+    install: '0'
     settings:
         version: 2.4
         user: www-data
@@ -220,13 +220,13 @@ apache:
                     path: \.php$
                     sethandler: 'proxy:fcgi://127.0.0.1:9000'
 letsencrypt:
-    install: '1'
+    install: '0'
     settings:
         email: ''
         webserver_service: ''
     domains: {  }
 php:
-    install: '1'
+    install: '0'
     settings:
         version: '7.2'
     modules:
@@ -300,9 +300,12 @@ nodejs:
     install: '1'
     settings:
         version: '8'
-    npm_packages: {  }
+    npm_packages:
+        - react
+        - react-dom
+        - next
 mariadb:
-    install: '1'
+    install: '0'
     settings:
         version: '10.1'
         root_password: '123'
