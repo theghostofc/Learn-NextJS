@@ -7,7 +7,7 @@ const Index = (props) => (
     <h1>Trending Giphys</h1>
     <ul>
       {props.images.map(image => (
-        <li>
+        <li key={`${image.id}`}>
           <figure>
             <img src={`https://media.giphy.com/media/${image.id}/giphy.gif`} title={`${image.title}`} />
             <figcaption>{`${image.title}. Source: Giphy`}</figcaption>
