@@ -1,11 +1,5 @@
-import Link from 'next/link'
-
-const linkStyle = {
-  marginRight: 15
-}
-
 const SearchBox = ({query}) => (
-  <div>
+  <span>
     <form className="search" method="get" action='/search'>
       <input type="text" name="q" defaultValue={query} />
       <input type="submit" value="Search" />
@@ -15,7 +9,7 @@ const SearchBox = ({query}) => (
         text-align:right;
     }
     `}</style>
-  </div>
+  </span>
 )
 
 export default SearchBox

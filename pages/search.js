@@ -1,4 +1,3 @@
-import SearchBox from '../components/SearchBox.js'
 import {withRouter} from 'next/router'
 import Pager from '../components/Pager'
 import SearchHeader from '../components/SearchHeader.js'
@@ -13,9 +12,7 @@ const layoutStyle = {
 }
 const Index = withRouter((props) => (
   <div style={layoutStyle}>
-    <SearchHeader title={props.title} />
-    <h1>{props.title}</h1>
-    <SearchBox query={props.query} />
+    <SearchHeader title={props.title} query={props.query} />
     <hr />
     <Gallery images={props.images} />
     <hr />
