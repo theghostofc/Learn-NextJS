@@ -2,6 +2,7 @@ import SearchBox from '../components/SearchBox.js'
 import {withRouter} from 'next/router'
 import Pager from '../components/Pager'
 import SearchHeader from '../components/SearchHeader.js'
+import Gallery from '../components/Gallery.js'
 
 const pageSize = 12;
 const giphy = require('giphy-api')({'https':true});
@@ -16,31 +17,9 @@ const Index = withRouter((props) => (
     <h1>{props.title}</h1>
     <SearchBox query={props.query} />
     <hr />
-    <div className='gallery'>
-      {props.images.map(image => (
-        <div className='item' key={`${image.id}`}>
-          <figure>
-            <img src={`https://media.giphy.com/media/${image.id}/giphy.gif`} title={`${image.title}`} />
-            <figcaption>{`${image.title}. Source: Giphy`}</figcaption>
-          </figure>
-        </div>
-      ))}
-    </div>
+    <Gallery images={props.images} />
     <hr />
     <Pager page={props.page} />
-    <style jsx>{`
-    .gallery{
-        display: grid;
-        grid-gap: 10px;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        grid-auto-rows: 250px 150px;
-    }
-    .item figure img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    `}</style>
   </div>
 ))
 
@@ -48,7 +27,7 @@ Index.getInitialProps = async function(props) {
   var n = Number(props.query.n);
   var baseUrl = props.query.baseUrl;
   var query = props.query.q;
-  if(n==null || n=="" || isNaN(n)){
+  if(n==null || n=="" || isNaN(n) || n === undefined){
     n=0;
   }
   else {
@@ -72,7 +51,7 @@ Index.getInitialProps = async function(props) {
       next:(data.length<pageSize)?n:n+1,
       baseUrl: baseUrl + '/' + query
     },
-    title: 'Results for - ' + query,
+    title: 'Giphy results for - ' + query,
     query: query
   }
 }
