@@ -40,7 +40,6 @@ const Index = withRouter((props) => (
 ))
 
 Index.getInitialProps = async function(props) {
-  console.log(props.query);
   var n = Number(props.query.n);
   var baseUrl = props.query.baseUrl;
   var query = props.query.q;
@@ -54,14 +53,12 @@ Index.getInitialProps = async function(props) {
       throw err;
     }
   }
-  console.log("s Page number");
-  console.log(n);
 
   var offset = n * pageSize;
   var data = await giphy.search({q:query, limit:pageSize, offset:offset}).then(function (res) {
     return res.data;
   });
-  // console.log(data);
+
   return {
     images: data,
     page: {

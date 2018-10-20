@@ -40,7 +40,6 @@ const Index = withRouter((props) => (
 ))
 
 Index.getInitialProps = async function(props) {
-  console.log(props.query);
   var n = Number(props.query.n);
   var baseUrl = props.query.baseUrl;
   if(n==null || n=="" || isNaN(n)){
@@ -53,14 +52,12 @@ Index.getInitialProps = async function(props) {
       throw err;
     }
   }
-  console.log("Page number");
-  console.log(n);
 
   var offset = n * pageSize;
   var data = await giphy.trending({limit:pageSize, offset:offset}).then(function (res) {
     return res.data;
   });
-  // console.log(data);
+
   return {
     images: data,
     page: {
