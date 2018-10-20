@@ -1,13 +1,18 @@
-import Layout from '../components/MyLayout.js'
 import SearchBox from '../components/SearchBox.js'
-import Link from 'next/link'
 import {withRouter} from 'next/router'
 import Pager from '../components/Pager'
+import SearchHeader from '../components/SearchHeader.js'
 
-const pageSize = 24;
+const pageSize = 12;
 const giphy = require('giphy-api')({'https':true});
+const layoutStyle = {
+  margin: 20,
+  padding: 20,
+  border: '1px solid #DDD'
+}
 const Index = withRouter((props) => (
-  <Layout>
+  <div style={layoutStyle}>
+    <SearchHeader title={props.title} />
     <h1>{props.title}</h1>
     <SearchBox query={props.query} />
     <hr />
@@ -36,7 +41,7 @@ const Index = withRouter((props) => (
         object-fit: cover;
     }
     `}</style>
-  </Layout>
+  </div>
 ))
 
 Index.getInitialProps = async function(props) {

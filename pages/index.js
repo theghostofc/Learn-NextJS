@@ -1,13 +1,18 @@
-import Layout from '../components/MyLayout.js'
 import SearchBox from '../components/SearchBox.js'
-import Link from 'next/link'
 import {withRouter} from 'next/router'
 import Pager from '../components/Pager'
+import Header from '../components/Header.js'
 
-const pageSize = 24;
+const pageSize = 12;
 const giphy = require('giphy-api')({'https':true});
+const layoutStyle = {
+  margin: 20,
+  padding: 20,
+  border: '1px solid #DDD'
+}
 const Index = withRouter((props) => (
-  <Layout>
+  <div style={layoutStyle}>
+    <Header next={props.next} title={props.title} />
     <h1>{props.title}</h1>
     <SearchBox />
     <hr />
@@ -36,13 +41,13 @@ const Index = withRouter((props) => (
         object-fit: cover;
     }
     `}</style>
-  </Layout>
+  </div>
 ))
 
 Index.getInitialProps = async function(props) {
   var n = Number(props.query.n);
   var baseUrl = props.query.baseUrl;
-  if(n==null || n=="" || isNaN(n)){
+  if(n==null || n=="" || isNaN(n) || n === undefined){
     n=0;
   }
   else {
@@ -66,7 +71,8 @@ Index.getInitialProps = async function(props) {
       next:(data.length<pageSize)?n:n+1,
       baseUrl: baseUrl
     },
-    title: 'Trending Giphys'
+    title: 'Trending Giphys',
+    next: (data.length<pageSize)?0:n+1
   }
 }
 
