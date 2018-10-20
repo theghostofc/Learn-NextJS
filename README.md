@@ -1,5 +1,5 @@
 # Learn-NextJS
-Learning NextJS.
+Learning NextJS, a framework built on top of React.
 
 ## Objective and features
 To fetch trending images from the Giphy API and allow the user to search for images
@@ -7,6 +7,6 @@ To fetch trending images from the Giphy API and allow the user to search for ima
 The bare-bones UI is responsive and adapts to the screen size and orientation.
 
 ## Key Dependencies:
-* NextJS
+* [NextJS](https://nextjs.org)
 * [Giphy API NPM package](https://www.npmjs.com/package/giphy-api)
-* Express
+* [Express](https://expressjs.com)
