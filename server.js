@@ -9,14 +9,35 @@ app.prepare()
 .then(() => {
   const server = express()
 
-  server.get('/:q', (req, res) => {
-    const actualPage = '/'
-    const queryParams = { q: req.params.q } 
+  server.get('/search/:q/:n', (req, res) => {
+    const actualPage = '/search'
+    const queryParams = { baseUrl: 'search', n: req.params.n, q: req.params.q }
     app.render(req, res, actualPage, queryParams)
   })
-
+  server.get('/search/:n', (req, res) => {
+    const actualPage = '/search'
+    const queryParams = { baseUrl: 'search', n: req.params.n, q: req.query.q }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/search', (req, res) => {
+    const actualPage = '/search'
+    const queryParams = { baseUrl: 'search', n: 0, q: req.query.q }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/trending/:n', (req, res) => {
+    const actualPage = '/'
+    const queryParams = { baseUrl: 'trending', n: req.params.n }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/:n', (req, res) => {
+    const actualPage = '/'
+    const queryParams = { baseUrl: 'trending', n: req.params.n }
+    app.render(req, res, actualPage, queryParams)
+  })
   server.get('*', (req, res) => {
-    return handle(req, res)
+    const actualPage = '/'
+    const queryParams = { baseUrl: 'trending', n: 0 }
+    app.render(req, res, actualPage, queryParams)
   })
 
   server.listen(3000, (err) => {

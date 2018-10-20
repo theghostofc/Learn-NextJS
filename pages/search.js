@@ -9,7 +9,7 @@ const giphy = require('giphy-api')({'https':true});
 const Index = withRouter((props) => (
   <Layout>
     <h1>{props.title}</h1>
-    <SearchBox />
+    <SearchBox query={props.query} />
     <hr />
     <div className='gallery'>
       {props.images.map(image => (
@@ -43,21 +43,22 @@ Index.getInitialProps = async function(props) {
   console.log(props.query);
   var n = Number(props.query.n);
   var baseUrl = props.query.baseUrl;
+  var query = props.query.q;
   if(n==null || n=="" || isNaN(n)){
     n=0;
   }
   else {
-    if (n<0) {
+    if (n<0 || query == '') {
       const err = new Error();
       err.code = 'ENOENT';
       throw err;
     }
   }
-  console.log("Page number");
+  console.log("s Page number");
   console.log(n);
 
   var offset = n * pageSize;
-  var data = await giphy.trending({limit:pageSize, offset:offset}).then(function (res) {
+  var data = await giphy.search({q:query, limit:pageSize, offset:offset}).then(function (res) {
     return res.data;
   });
   // console.log(data);
@@ -67,9 +68,10 @@ Index.getInitialProps = async function(props) {
       previous:((n-1)<0)?0:n-1,
       current:n,
       next:(data.length<pageSize)?n:n+1,
-      baseUrl: baseUrl
+      baseUrl: baseUrl + '/' + query
     },
-    title: 'Trending Giphys'
+    title: 'Results for - ' + query,
+    query: query
   }
 }
 
